@@ -14,11 +14,12 @@ const ErrorPopup: React.FC<ErrorProps> = ({ error }) => {
   }
 
   const { severity, message } = error
-  const bgColor = severity === 'warning'
-    ? 'bg-yellow-400'
-    : severity === 'info'
-      ? 'bg-blue-500'
-      : 'bg-red-500'
+  const severityColorMap = {
+    warning: 'bg-yellow-400',
+    info: 'bg-blue-500',
+    error: 'bg-red-500',
+  }
+  const bgColor = severityColorMap[severity as keyof typeof severityColorMap] || 'bg-red-500'
 
   const closePopup = () => setIsOpen(false)
 
@@ -28,7 +29,7 @@ const ErrorPopup: React.FC<ErrorProps> = ({ error }) => {
         <div className="flex justify-between items-center">
           <div>{message}</div>
           <button onClick={closePopup} className="ml-4 rounded text-white focus:outline-none">
-            <svg className="fill-current h-6 w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <svg className="fill-current h-6 w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
               <title>Close</title>
               <path d="M14.348 14.849a1 1 0 0 1-1.414 0L10 11.414l-2.934 2.935a1 1 0 0 1-1.414-1.414l2.935-2.934-2.935-2.935a1 1 0 0 1 1.414-1.414L10 8.586l2.934-2.935a1 1 0 0 1 1.414 1.414L11.414 10l2.934 2.935a1 1 0 0 1 0 1.414z"/>
             </svg>

@@ -24,7 +24,7 @@ const Home: React.FC = () => {
       if (response.images?.length) setImages(response.images)
     }
     fetchData()
-  }, [images])
+  }, [])
 
   const pageCount = Math.ceil(images.length / itemsPerPage)
 
