@@ -1,6 +1,6 @@
 export interface GalleryImageData {
     url: string, 
     type?: string,
-    lastModified?: string,
+    uploadDate?: string,
     description?: string,
 }

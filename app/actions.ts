@@ -60,7 +60,7 @@ export async function uploadImages(formData: FormData) {
           Item: {
             'FileKey': { S: key }, // PK
             'FileType': { S: file.type },
-            'lastModified': { S: String(file.lastModified) }, // Sort key
+            'uploadDate': { S: new Date().getTime().toString() }, // Sort key
             'description': { S: description },
           },
         })
@@ -118,7 +118,7 @@ export async function fetchImages() {
         return {
           url: result.imageUrl,
           type: String(result.metadata?.type),
-          lastModified: String(result.metadata?.lastModified),
+          uploadDate: String(result.metadata?.uploadDate),
           description: String(result.metadata?.description),
         }
       })

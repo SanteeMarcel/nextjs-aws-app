@@ -14,7 +14,7 @@ const ImageList: React.FC<ImageListProps> = ({ currentImages }) => {
         <div key={image.url} className="bg-white p-4 rounded shadow">
           <Image src={image.url} alt={'photo'} width={200} height={200} />
           <h3 className="text-xl font-semibold mt-2">${image.description}</h3>
-          <p className="text-gray-600">${image.lastModified ? new Date(image.lastModified).toLocaleDateString() : null}</p>
+          <p className="text-gray-600">${image.uploadDate ? new Date(image.uploadDate).toLocaleDateString() : null}</p>
           <button onClick={async () => handleDelete(image.url)} className="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
           Delete
           </button>
