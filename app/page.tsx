@@ -2,38 +2,29 @@
 
 import React, { useState, useEffect } from 'react'
 import Pagination from './_components/Pagination'
-import { useImageHandler } from './_hooks/useImageHandler'
 import ImageUploadForm from './_components/ImageUploadForm'
 import ImageList from './_components/ImageList'
 import { ErrorData } from './_interfaces/ErrorData'
 import ErrorPopup from './_components/Error'
+import { fetchImages } from '@/app/actions'
+import { GalleryImageData } from './_interfaces/GalleryImageData'
 
 const Home: React.FC = () => {
-  const { images, handleUpload, handleDelete } = useImageHandler()
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null)
   const [imageDescription, setImageDescription] = useState('')
   const [error, setError] = useState<ErrorData>()
+  const [images, setImages] = useState<GalleryImageData[]>([])
 
   const itemsPerPage = 20
 
-  const handleDescriptionSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (selectedFiles) {
-      handleUpload(selectedFiles, imageDescription)
-        .then(e => setError(e))
-      setSelectedFiles(null)
-      setImageDescription('')
-    }
-  }
-
-  const fetchImages = async () => {
-    // Implement logic to fetch images from a server if required
-  }
-
   useEffect(() => {
-    fetchImages()
-  }, [])
+    async function fetchData() {
+      const response = await fetchImages()
+      if (response.severity) setError(response)
+      if (response.images?.length) setImages(response.images)
+    }
+    fetchData()
+  }, [images])
 
   const pageCount = Math.ceil(images.length / itemsPerPage)
 
@@ -49,12 +40,10 @@ const Home: React.FC = () => {
     <div className="container mx-auto px-4">
       <ErrorPopup error={error}/>
       <ImageUploadForm
-        handleDescriptionSubmit={handleDescriptionSubmit}
-        setSelectedFiles={setSelectedFiles}
         imageDescription={imageDescription}
         setImageDescription={setImageDescription}
       />
-      <ImageList currentImages={currentImages} handleDelete={handleDelete} />
+      <ImageList currentImages={currentImages} />
       <Pagination currentPage={currentPage} pageCount={pageCount} setPage={setPage} />
     </div>
   )

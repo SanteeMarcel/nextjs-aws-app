@@ -16,7 +16,10 @@ const ErrorPopup: React.FC<ErrorProps> = ({ error }) => {
   const { severity, message } = error
   const bgColor = severity === 'warning'
     ? 'bg-yellow-400'
-    : 'bg-red-500'
+    : severity === 'info'
+      ? 'bg-blue-500'
+      : 'bg-red-500'
+
   const closePopup = () => setIsOpen(false)
 
   return (

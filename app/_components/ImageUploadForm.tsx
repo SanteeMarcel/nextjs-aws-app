@@ -1,20 +1,21 @@
 import React from 'react'
+import { uploadImages } from '../actions'
 
 interface ImageUploadFormProps {
-    handleDescriptionSubmit: (e: React.FormEvent) => void;
-    setSelectedFiles: (fileList: FileList | null) => void;
     imageDescription: string
     setImageDescription: (description: string) => void
-}
+} 
 
-const ImageUploadForm: React.FC<ImageUploadFormProps> = ({ handleDescriptionSubmit, setSelectedFiles, imageDescription, setImageDescription }) => {
+const ImageUploadForm: React.FC<ImageUploadFormProps> = ({ imageDescription, setImageDescription }) => {
   return (
-    <form onSubmit={handleDescriptionSubmit} className="mb-4">
+    <form action={uploadImages} className="mb-4">
       <input
+        id='file'
+        name='file'
         type="file"
         multiple
-        onChange={(e) => setSelectedFiles(e.target.files)}
         className="mb-2"
+        accept='images/*'
       />
       <input
         type="text"

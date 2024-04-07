@@ -6,7 +6,6 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
-    "multiline-ternary": ["error", "always"],
     "brace-style": [
       "error",
       "1tbs",
