@@ -37,3 +37,9 @@ next-env.d.ts
 
 # vs code
 /.vscode
+
+# sst
+.sst
+
+# open-next
+.open-next
